@@ -7,7 +7,7 @@ import IconButton from "../IconButton/IconButton";
 import Button from "../Button/Button";
 import { NavLink } from "react-router-dom";
 
-const Header = ({ toggleTheme, theme }) => {
+const Header = () => {
   return (
     <header className={css.header}>
       <Container className={css.headerBox}>
@@ -25,7 +25,7 @@ const Header = ({ toggleTheme, theme }) => {
           </ul>
         </nav>
         <Button>Sign In</Button>
-        <ThemeSwitcher toggleTheme={toggleTheme} theme={theme} />
+        <ThemeSwitcher />
         <IconButton RLIcon={Menu} />
       </Container>
     </header>

@@ -1,23 +1,18 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-// import { nanoid } from "nanoid";
+
 import * as Yup from "yup";
 import IconButton from "../IconButton/IconButton";
 import { BadgePlus } from "lucide-react";
 
-import {
-  addMinutes,
-  setHours,
-  setMinutes,
-  setSeconds,
-  startOfDay,
-} from "date-fns";
+import { addMinutes } from "date-fns";
 import TimeField from "../Forms/TimeField";
 import DateField from "../Forms/DateField";
 
 import css from "./LogForm.module.css";
-import { useDispatch } from "react-redux";
-import { addLog } from "../../redux/logs/slice";
-import { nanoid } from "nanoid";
+import { useDispatch, useSelector } from "react-redux";
+import { editLog } from "../../redux/logs/slice";
+
+import { selectCurrentLog } from "../../redux/logs/selectors";
 
 const schema = Yup.object({
   date: Yup.date().required("*"),
@@ -35,21 +30,23 @@ const schema = Yup.object({
     .required("Обов'язкове поле"),
 });
 
-export default function LogForm() {
+export default function EditLogForm() {
   const dispatch = useDispatch();
+  const currentLog = useSelector(selectCurrentLog);
+
   return (
     <Formik
       initialValues={{
-        date: startOfDay(new Date()),
-        username: "",
-        start: setHours(setMinutes(setSeconds(new Date(), 0), 0), 8),
-        end: setHours(setMinutes(setSeconds(new Date(), 0), 0), 20),
+        date: new Date(currentLog.date),
+        username: currentLog.username,
+        start: new Date(currentLog.start),
+        end: new Date(currentLog.end),
       }}
       validationSchema={schema}
       onSubmit={(values, actions) => {
-        const newLogItem = { ...values, id: nanoid() };
+        const newLogItem = { ...values, id: currentLog.id };
 
-        dispatch(addLog(newLogItem));
+        dispatch(editLog(newLogItem));
         actions.resetForm();
       }}
     >

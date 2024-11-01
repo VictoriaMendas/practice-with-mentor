@@ -7,8 +7,12 @@ import TableGrid from "../TableGrid/TableGrid";
 
 import css from "./LogItem.module.css";
 import IconButton from "../IconButton/IconButton";
+import { deleteLog, setCurrentLog } from "../../redux/logs/slice";
+import { useDispatch } from "react-redux";
 
-export default function LogItem({ item, deleteLogItem }) {
+export default function LogItem({ item }) {
+  const dispatch = useDispatch();
+
   const formatedDate = format(new Date(item.date), "E dd.MM", {
     locale: uk,
   });
@@ -16,7 +20,7 @@ export default function LogItem({ item, deleteLogItem }) {
   const formateEnd = format(item.end, "HH:mm");
   const hours = differenceInHours(item.end, item.start);
   const minutes = differenceInMinutes(item.end, item.start, {
-    roundingMethod: "ceil",
+    roundingMethod: "round",
   });
 
   const total = hours + (minutes - hours * 60) / 60;
@@ -30,11 +34,16 @@ export default function LogItem({ item, deleteLogItem }) {
       <div className={css.col}>{total.toFixed(2)}</div>
       <div className={css.col}>
         <div className={css.controls}>
-          <IconButton RLIcon={Pencil} />
+          <IconButton
+            RLIcon={Pencil}
+            onClick={() => {
+              dispatch(setCurrentLog(item));
+            }}
+          />
           <IconButton
             RLIcon={Trash}
             onClick={() => {
-              deleteLogItem(item.id);
+              dispatch(deleteLog(item.id));
             }}
           />
         </div>

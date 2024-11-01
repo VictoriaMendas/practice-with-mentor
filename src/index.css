@@ -5,6 +5,8 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  --background: white;
+  --border: black;
 }
 
 #root {
@@ -43,4 +45,12 @@ h6 {
 button {
   border: none;
   cursor: pointer;
+}
+body {
+  background-color: var(--background);
+  border-color: var(--border);
+}
+body.dark {
+  --background: rgb(37, 36, 36);
+  --border: white;
 }

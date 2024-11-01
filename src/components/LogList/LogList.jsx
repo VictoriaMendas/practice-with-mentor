@@ -1,9 +1,20 @@
+import { useSelector } from "react-redux";
 import LogItem from "../LogItem/LogItem";
 import TableGrid from "../TableGrid/TableGrid";
 
 import css from "./LogList.module.css";
+import { selectLogs } from "../../redux/logs/selectors";
 
-export default function LogList({ logData, deleteLogItem }) {
+export default function LogList() {
+  const logData = useSelector(selectLogs);
+
+  const sortedLogData = (() => {
+    return logData.toSorted(
+      (a, b) =>
+        new Date(a.date) - new Date(b.date) ||
+        a.username.localeCompare(b.username)
+    );
+  })();
   return (
     <div className={css.table}>
       <TableGrid className={css.head}>
@@ -16,10 +27,10 @@ export default function LogList({ logData, deleteLogItem }) {
         )}
       </TableGrid>
       <ul>
-        {logData.map((item) => {
+        {sortedLogData.map((item) => {
           return (
             <li key={item.id} className={css.row}>
-              <LogItem item={item} deleteLogItem={deleteLogItem} />
+              <LogItem item={item} />
             </li>
           );
         })}

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
@@ -12,29 +10,9 @@ import LogDetailsPage from "./pages/LogDetailsPage/LogDetailsPage";
 import NotFound from "./pages/NotFound/NotFound";
 
 const App = () => {
-  const [theme, setTheme] = useState(() => {
-    const dataLs = localStorage.getItem("theme");
-
-    if (!dataLs) {
-      return "light";
-    }
-    return dataLs;
-    // return !dataLs ? "light" : dataLs
-    // return dataLs ?? "light"
-    // return localStorage.getItem("theme") ?? "light"
-  });
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <>
-      <Header toggleTheme={toggleTheme} theme={theme} />
+      <Header />
 
       <Main>
         <Routes>
