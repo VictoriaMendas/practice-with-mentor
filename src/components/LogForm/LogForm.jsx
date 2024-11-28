@@ -16,7 +16,7 @@ import DateField from "../Forms/DateField";
 
 import css from "./LogForm.module.css";
 import { useDispatch } from "react-redux";
-import { addLog } from "../../redux/logs/slice";
+import { addLog } from "../../redux/logs/operations";
 import { nanoid } from "nanoid";
 
 const schema = Yup.object({

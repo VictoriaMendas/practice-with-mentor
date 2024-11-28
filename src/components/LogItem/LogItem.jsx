@@ -7,8 +7,9 @@ import TableGrid from "../TableGrid/TableGrid";
 
 import css from "./LogItem.module.css";
 import IconButton from "../IconButton/IconButton";
-import { deleteLog, setCurrentLog } from "../../redux/logs/slice";
+import { setCurrentLog } from "../../redux/logs/slice";
 import { useDispatch } from "react-redux";
+import { deleteLog } from "../../redux/logs/operations";
 
 export default function LogItem({ item }) {
   const dispatch = useDispatch();

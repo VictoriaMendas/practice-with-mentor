@@ -10,7 +10,7 @@ import DateField from "../Forms/DateField";
 
 import css from "./LogForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { editLog } from "../../redux/logs/slice";
+import { editLog } from "../../redux/logs/operations";
 
 import { selectCurrentLog } from "../../redux/logs/selectors";
 
@@ -44,9 +44,9 @@ export default function EditLogForm() {
       }}
       validationSchema={schema}
       onSubmit={(values, actions) => {
-        const newLogItem = { ...values, id: currentLog.id };
+        const updatedLogItem = { ...values, id: currentLog.id };
 
-        dispatch(editLog(newLogItem));
+        dispatch(editLog(updatedLogItem));
         actions.resetForm();
       }}
     >

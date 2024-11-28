@@ -12,22 +12,25 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { authSlice } from "./auth/sllice";
 
 // import { devToolsEnhancer } from "@redux-devtools/extension";
-const logsConfig = {
-  key: "logs",
-  storage,
-  whitelist: ["items"],
-};
+
 const globalConfig = {
   key: "global",
   storage,
   whitelist: ["themeTitle"],
 };
+const authConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["token"],
+};
 export const store = configureStore({
   reducer: {
     global: persistReducer(globalConfig, globalSlice.reducer),
-    logs: persistReducer(logsConfig, logsSlice.reducer),
+    logs: logsSlice.reducer,
+    auth: persistReducer(authConfig, authSlice.reducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
